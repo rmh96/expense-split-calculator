@@ -5,8 +5,8 @@ export const useReducerWithLogger = (reducer, initialState) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log("Previous State", prevState.current);
-    console.log("Next State", state);
+    //console.log("Previous State", prevState.current);
+    //console.log("Next State", state);
     prevState.current = state;
   }, [state]);
 

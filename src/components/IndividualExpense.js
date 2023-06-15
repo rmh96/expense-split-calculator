@@ -67,10 +67,19 @@ const IndividualExpense = () => {
           </label>
           <input
             className="w-1/2 border h-8 pl-1 rounded"
-            placeholder="where you went?"
+            placeholder={
+              spentDetails.amountSpent === 0 ? "how much amount spent?" : ""
+            }
             type="number"
             id="amount-spent"
-            value={spentDetails.amountSpent}
+            value={
+              spentDetails.amountSpent === 0 ? "" : spentDetails.amountSpent
+            }
+            onKeyDown={(e) => {
+              if (e.key === "-" || e.keyCode === 45) {
+                e.preventDefault();
+              }
+            }}
             autoComplete="off"
             onChange={(event) =>
               setSpentDetails({

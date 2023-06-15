@@ -3,7 +3,6 @@
   "name": "expense-split-calculator",
   "version": "0.1.0",
   "description": "Get each person spent expenses for the group and split it with other persons",
-  "main": "index.js",
   "scripts": {
     "test": "jest",
     "start": "parcel index.html",

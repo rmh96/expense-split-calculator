@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { ExpenseSplitInitialStates } from "./contanst";
 //logger
 import { useReducerWithLogger } from "./useReducerLogger";
+//util method
+import { calculateEachShare } from "./utils";
 
 const ExpenseSplitContext = createContext({
   esStore: ExpenseSplitInitialStates,
@@ -20,6 +22,7 @@ const reducer = (state, action) => {
         return item !== action.payLoad;
       });
       return { ...state, tourMembers: [...removedList] };
+    //main logic Case
     case "shareAmountWith":
       return { ...state, amountOwnsToEachOthersList: action.payLoad };
     case "changeStage":
@@ -69,74 +72,17 @@ export const ExpenseProvider = ({ children }) => {
        membersToShare: ['Harish', 'Shafee', 'Pooja', 'Udhaya', 'Thani']
        payer: "Harish"
      */
-    // esStore.eachSpentExpenses.forEach((expense) => {
-    //   const { payer, amountSpent, membersToShare } = expense;
-    //   let updateShareAmountWith = esStore.amountOwnsToEachOthersList;
-    //   const payerObj = updateShareAmountWith.find((obj) => obj.name === payer);
-    //   if (payerObj) {
-    //     const totalMembers = membersToShare.length;
-    //     const shareAmountPerMember = amountSpent / totalMembers;
+    const expenseDetail =
+      esStore.eachSpentExpenses.length === 1
+        ? esStore.eachSpentExpenses[0]
+        : esStore.eachSpentExpenses[esStore.eachSpentExpenses.length - 1];
 
-    //     membersToShare.forEach((member) => {
-    //       const shareEntry = payerObj.shareAmountTo.find(
-    //         (entry) => entry.name === member
-    //       );
-
-    //       if (shareEntry) {
-    //         shareEntry.amountToShare += shareAmountPerMember;
-    //       }
-    //     });
-    //   }
-    //   esDispatch({ type: "shareAmountWith", payLoad: updateShareAmountWith });
-    // });
-
-    const listOfExpenses = esStore.eachSpentExpenses;
-    for (let i = 0; i < listOfExpenses.length; i++) {
-      const item = listOfExpenses[i];
-      if (item.membersToShare.length === esStore.tourMembers.length) {
-        //if user selects All
-        const equalAmt = item.amountSpent / item.membersToShare.length;
-        let updateShareAmountWith = esStore.amountOwnsToEachOthersList;
-        updateShareAmountWith.map((entry) => {
-          if (entry.name !== item.payer) {
-            for (let i = 0; i < entry.shareAmountTo.length; i++) {
-              if (item.payer === entry.shareAmountTo[i].name) {
-                entry.shareAmountTo[i].amountToShare += equalAmt;
-              }
-            }
-          }
-        });
-        esDispatch({ type: "shareAmountWith", payLoad: updateShareAmountWith });
-      } else if (item.membersToShare.includes(item.payer)) {
-        //if user selects few including the person paid
-        const equalAmt = item.amountSpent / item.membersToShare.length;
-        let updateShareAmountWith = esStore.amountOwnsToEachOthersList;
-        updateShareAmountWith.map((entry) => {
-          if (item.membersToShare.includes(entry.name)) {
-            //const balanceAmt = entry[item.payer]
-            for (let i = 0; i < entry.shareAmountTo.length; i++) {
-              if (item.payer === entry.shareAmountTo[i].name) {
-                entry.shareAmountTo[i].amountToShare += equalAmt;
-              }
-            }
-          }
-        });
-      } else if (!item.membersToShare.includes(item.payer)) {
-        //if user selects few not including the person paid
-        const equalAmt = item.amountSpent / item.membersToShare.length;
-        let updateShareAmountWith = esStore.amountOwnsToEachOthersList;
-        updateShareAmountWith.map((entry) => {
-          if (item.membersToShare.includes(entry.name)) {
-            //const balanceAmt = entry[item.payer]
-            for (let i = 0; i < entry.shareAmountTo.length; i++) {
-              if (item.payer === entry.shareAmountTo[i].name) {
-                entry.shareAmountTo[i].amountToShare += equalAmt;
-              }
-            }
-          }
-        });
-      }
-    }
+    const updateMainObj = calculateEachShare(
+      expenseDetail,
+      esStore.amountOwnsToEachOthersList
+    );
+    console.log("MainObj-", updateMainObj);
+    esDispatch({ type: "shareAmountWith", payLoad: updateMainObj });
   }, [esStore.eachSpentExpenses]);
 
   return (
