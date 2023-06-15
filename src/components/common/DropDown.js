@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useExpenseSplitContext } from "../../context/Store";
 
-const DropDown = ({ label, id, updateNameInParent }) => {
+const DropDown = ({
+  label,
+  id,
+  updateNameInParent,
+  isEmptyCheck,
+  parentValue,
+}) => {
   const { esStore } = useExpenseSplitContext();
   const [dropDownFlag, setDropDownFlag] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(parentValue);
 
   const handleDropDownChange = () => {
     setDropDownFlag(!dropDownFlag);
   };
+
+  useEffect(() => {
+    setName(parentValue);
+  }, [parentValue]);
 
   return (
     <div className="w-full flex justify-between">
@@ -19,11 +29,11 @@ const DropDown = ({ label, id, updateNameInParent }) => {
         <div
           className={`w-full flex justify-between items-center border h-7 pl-1 rounded ${
             dropDownFlag ? "border-blue-600" : ""
-          }`}
+          } ${isEmptyCheck ? "shake-box" : ""}`}
           onClick={handleDropDownChange}
         >
           <input
-            className="outline-0 h-6 "
+            className="outline-0 h-6"
             placeholder="Select a person"
             value={name}
             readOnly
@@ -45,8 +55,13 @@ const DropDown = ({ label, id, updateNameInParent }) => {
                 key={index}
                 onClick={() => {
                   setDropDownFlag(false);
-                  setName(item);
-                  updateNameInParent(item);
+                  if (name === item) {
+                    setName("");
+                    updateNameInParent("");
+                  } else {
+                    setName(item);
+                    updateNameInParent(item);
+                  }
                 }}
               >
                 {item}

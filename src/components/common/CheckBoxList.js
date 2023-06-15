@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useExpenseSplitContext } from "../../context/Store";
 
-const CheckBoxList = ({ label, updateListInParent }) => {
+const CheckBoxList = ({ label, updateListInParent, parentValue }) => {
   const { esStore } = useExpenseSplitContext();
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(parentValue);
 
   const handleSelectedOptions = (option) => {
     const newSelectedOptions = [...selectedOptions];
@@ -25,6 +25,10 @@ const CheckBoxList = ({ label, updateListInParent }) => {
       updateListInParent(esStore.tourMembers);
     }
   };
+
+  useEffect(() => {
+    setSelectedOptions(parentValue);
+  }, [parentValue]);
 
   return (
     <div className="w-full flex justify-between">

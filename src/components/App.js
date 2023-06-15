@@ -6,7 +6,7 @@ import ExpenseSplitMain from "./ExpenseSplitMain";
 const App = () => {
   return (
     <ExpenseProvider>
-      <div className=" w-full h-screen border p-3 flex flex-col items-center">
+      <div className="w-full h-screen border p-3 flex flex-col items-center">
         <Header />
         <ExpenseSplitMain />
       </div>

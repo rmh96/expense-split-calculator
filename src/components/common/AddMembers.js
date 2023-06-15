@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useExpenseSplitContext } from "../../context/Store";
 
-const AddMembers = ({ id, label }) => {
+const AddMembers = ({ id, label, isEmptyCheck }) => {
   const [name, setName] = useState("");
   const { esStore, esDispatch } = useExpenseSplitContext();
   return (
@@ -11,7 +11,9 @@ const AddMembers = ({ id, label }) => {
       </label>
       <div className="w-1/2">
         <input
-          className="w-full border h-8 pl-1 rounded"
+          className={`w-full border h-8 pl-1 rounded ${
+            isEmptyCheck ? "shake-box" : ""
+          }`}
           placeholder="your crime partners"
           type="text"
           id="addMembers"

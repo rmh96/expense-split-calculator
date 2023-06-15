@@ -5,9 +5,25 @@ import AddMembers from "./common/AddMembers";
 
 const TourInitialDetails = () => {
   const { esStore, esDispatch } = useExpenseSplitContext();
+  const [error, setError] = useState({ "tour-desc": false, addMembers: false });
   const handleNextClick = () => {
-    esDispatch({ type: "changeStage" });
+    console.log();
+    if (esStore.tourDesc === "" || !esStore.tourMembers.length) {
+      esStore.tourDesc == "" && !esStore.tourMembers.length
+        ? setError({ "tour-desc": true, addMembers: true })
+        : esStore.tourDesc === "" && esStore.tourMembers.length > 0
+        ? setError({ "tour-desc": true, addMembers: false })
+        : esStore.tourDesc !== "" &&
+          !esStore.tourMembers.length &&
+          setError({ "tour-desc": false, addMembers: true });
+      setTimeout(() => {
+        setError({ "tour-desc": false, addMembers: false });
+      }, 1000);
+    } else {
+      esDispatch({ type: "changeStage" });
+    }
   };
+
   return (
     <div
       id="tour-details"
@@ -21,12 +37,14 @@ const TourInitialDetails = () => {
           event.defaultPrevented();
         }}
       >
-        <div className="w-full flex justify-between items-center">
+        <div className={`w-full flex justify-between items-center `}>
           <label className="inline-block" htmlFor="tour-desc">
             Description:
           </label>
           <input
-            className="w-1/2 border h-8 pl-1 rounded"
+            className={`w-1/2 border h-8 pl-1 rounded ${
+              error["tour-desc"] ? "shake-box" : ""
+            }`}
             placeholder="where you went?"
             type="text"
             id="tour-desc"
@@ -37,7 +55,11 @@ const TourInitialDetails = () => {
             }}
           />
         </div>
-        <AddMembers id={"addMembers"} label="Add Members" />
+        <AddMembers
+          id={"addMembers"}
+          label="Add Members"
+          isEmptyCheck={error.addMembers}
+        />
         <Button value={"Next"} handleSubmit={handleNextClick} id={"next"} />
       </form>
     </div>

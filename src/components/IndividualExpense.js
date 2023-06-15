@@ -11,6 +11,7 @@ const IndividualExpense = () => {
     amountSpent: 0,
     membersToShare: [],
   });
+  const [error, setError] = useState(false);
 
   const handleCheckBoxChange = (options) => {
     setSpentDetails({
@@ -20,13 +21,25 @@ const IndividualExpense = () => {
   };
 
   const handleFormSubmit = () => {
-    console.log(spentDetails);
+    if (spentDetails.payer === "") {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 1000);
+    } else {
+      esDispatch({ type: "eachSpentExpenses", payLoad: spentDetails });
+      setSpentDetails({
+        payer: "",
+        amountSpent: 0,
+        membersToShare: [],
+      });
+    }
   };
 
   return (
     <div
       id="individual-expense"
-      className="sm:w-full md:w-5/6 w-1/3 mt-10 flex flex-col items-center"
+      className="sm:w-full md:w-5/6 w-1/3 mt-10 flex flex-col items-center transition duration-300 ease-linear"
     >
       <h2 className="text-lg">{esStore.tourDesc} - Individual Expense</h2>
       <form
@@ -39,12 +52,14 @@ const IndividualExpense = () => {
         <DropDown
           label="Who opened the wallet?"
           id="payer"
+          parentValue={spentDetails.payer}
           updateNameInParent={(name) => {
             setSpentDetails({
               ...spentDetails,
               payer: name,
             });
           }}
+          isEmptyCheck={error}
         />
         <div className="w-full flex justify-between items-center">
           <label className="inline-block" htmlFor="amount-spent">
@@ -67,6 +82,7 @@ const IndividualExpense = () => {
         </div>
         <CheckBoxList
           label={"Share with:"}
+          parentValue={spentDetails.membersToShare}
           updateListInParent={handleCheckBoxChange}
         />
         <Button value={"Submit"} handleSubmit={handleFormSubmit} />
