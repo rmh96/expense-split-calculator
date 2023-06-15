@@ -1,12 +1,15 @@
 {
+  "homepage": "https://rmh96.github.io/expense-split-calculator",
   "name": "expense-split-calculator",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Get each person spent expenses for the group and split it with other persons",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "start": "parcel index.html",
-    "build": "parcel build index.html"
+    "build": "parcel build index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "author": "Harish Mukundhaprasath",
   "license": "ISC",
@@ -19,6 +22,7 @@
     "autoprefixer": "^10.4.14",
     "eslint": "^8.42.0",
     "eslint-plugin-react": "^7.32.2",
+    "gh-pages": "^5.0.0",
     "parcel": "^2.9.2",
     "postcss": "^8.4.24",
     "process": "^0.11.10",
