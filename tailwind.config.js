@@ -5,7 +5,7 @@ module.exports = {
     extend: {},
     screens: {
       sm: { min: "380px", max: "540px" },
-      md: { min: "541px", max: "750px" },
+      md: { min: "541px", max: "1200px" },
     },
   },
   plugins: [],
