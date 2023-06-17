@@ -8,7 +8,7 @@ const ExpenseSplitMain = () => {
   const { esStore } = useExpenseSplitContext();
   return (
     <div className="w-full flex flex-col items-center z-10">
-      <ExpenseDetailsList />
+      {!esStore.initialStage && <ExpenseDetailsList />}
       {esStore.initialStage ? <TourInitialDetails /> : <IndividualExpense />}
     </div>
   );

@@ -43,16 +43,23 @@ const ExpenseDetailsList = () => {
                   <div className="inline-block">{item.amountSpent}rs</div>
                   <span> for {item.description}</span>
                   <span>
-                    {item.membersToShare.includes(item.payer)
+                    {item.membersToShare.length === 1 &&
+                    item.membersToShare[0] === item.payer
+                      ? " for himself only"
+                      : item.membersToShare.includes(item.payer)
                       ? ", which covered his own expenses along with "
                       : " on behalf of "}
                   </span>
                   <div className="inline-block">
                     {item.membersToShare.length > 1
-                      ? item.membersToShare.slice(0, -1).join(", ") +
+                      ? item.membersToShare
+                          .filter((name) => name !== item.payer)
+                          .slice(0, -1)
+                          .join(", ") +
                         ", and " +
                         item.membersToShare[item.membersToShare.length - 1]
-                      : item.membersToShare[0]}
+                      : item.membersToShare[0] !== item.payer &&
+                        item.membersToShare[0]}
                     .
                   </div>
                 </div>

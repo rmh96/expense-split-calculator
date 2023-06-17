@@ -9,8 +9,10 @@ const DropDown = ({
   parentValue,
 }) => {
   const { esStore } = useExpenseSplitContext();
+  const [options, setOptions] = useState(esStore.tourMembers);
   const [dropDownFlag, setDropDownFlag] = useState(false);
   const [name, setName] = useState(parentValue);
+  const [filterValue, setFilterValue] = useState("");
 
   const handleDropDownChange = () => {
     setDropDownFlag(!dropDownFlag);
@@ -20,12 +22,22 @@ const DropDown = ({
     setName(parentValue);
   }, [parentValue]);
 
+  useEffect(() => {
+    setOptions(
+      filterValue !== ""
+        ? options.filter((option) =>
+            option.toLowerCase().includes(filterValue.toLowerCase())
+          )
+        : esStore.tourMembers
+    );
+  }, [filterValue]);
+
   return (
     <div className="w-full flex justify-between">
       <label className="inline-block" htmlFor="tour-desc">
         {label}
       </label>
-      <div className="w-1/2">
+      <div className="w-1/2 flex flex-col items-center">
         <div
           className={`w-full flex justify-between items-center border h-7 pl-1 rounded ${
             dropDownFlag ? "border-blue-600" : ""
@@ -46,15 +58,23 @@ const DropDown = ({
             ^
           </span>
         </div>
-
         {dropDownFlag && esStore.tourMembers.length > 0 ? (
-          <div className="w-full border h-28 rounded overflow-scroll">
-            {esStore.tourMembers.map((item, index) => (
+          <div className="w-full border h-28 overflow-scroll relative">
+            <input
+              className="sticky top-0 p-2 w-full h-6 outline-none border-b-2"
+              value={filterValue}
+              onChange={(e) => {
+                setFilterValue(e.target.value);
+              }}
+              placeholder="search"
+            />
+            {options.map((item, index) => (
               <div
-                className="w-full h-7 flex items-center border pl-1 hover:bg-blue-200 text-sm"
+                className="w-full h-7 flex items-center border-b-2 pl-1 hover:bg-blue-200 text-sm"
                 key={index}
                 onClick={() => {
                   setDropDownFlag(false);
+                  setFilterValue("");
                   if (name === item) {
                     setName("");
                     updateNameInParent("");
