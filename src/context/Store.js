@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { ExpenseSplitInitialStates } from "./contanst";
 //logger
 import { useReducerWithLogger } from "./useReducerLogger";
@@ -14,7 +20,11 @@ const reducer = (state, action) => {
   switch (action.type) {
     //tourInitialSection
     case "location":
-      return { ...state, tourDesc: action.payLoad };
+      return {
+        ...state,
+        tourDesc:
+          action.payLoad.charAt(0).toUpperCase() + action.payLoad.slice(1),
+      };
     case "addMember":
       return { ...state, tourMembers: [...state.tourMembers, action.payLoad] };
     case "removeMember":
@@ -35,6 +45,8 @@ const reducer = (state, action) => {
       };
     case "resetApp":
       return ExpenseSplitInitialStates;
+    case "darkMode":
+      return;
     default:
       return state;
   }
@@ -45,8 +57,13 @@ export const ExpenseProvider = ({ children }) => {
     reducer,
     ExpenseSplitInitialStates
   );
+  const [darkMode, setDarkMode] = useState(true);
+
   const resetApp = () => {
     esDispatch({ type: "resetApp" });
+  };
+  const updateDarkMode = () => {
+    setDarkMode(!darkMode);
   };
 
   useEffect(() => {
@@ -86,7 +103,9 @@ export const ExpenseProvider = ({ children }) => {
   }, [esStore.eachSpentExpenses]);
 
   return (
-    <ExpenseSplitContext.Provider value={{ esStore, esDispatch, resetApp }}>
+    <ExpenseSplitContext.Provider
+      value={{ esStore, esDispatch, resetApp, darkMode, updateDarkMode }}
+    >
       {children}
     </ExpenseSplitContext.Provider>
   );

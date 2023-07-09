@@ -7,7 +7,7 @@ const MainShareInfo = () => {
     !esStore.initialStage && (
       <div className="w-full h-1/3 mt-10 flex flex-col ">
         <div className="w-full flex justify-center text-xl">{`${esStore.tourDesc}'s - Details Expense Share Report`}</div>
-        <div className="h-full overflow-y-auto flex flex-wrap justify-evenly">
+        <div className="h-full flex flex-wrap justify-evenly">
           {esStore.amountOwnsToEachOthersList.length > 0 &&
             esStore.amountOwnsToEachOthersList.map((item, index) => {
               return (
@@ -29,7 +29,7 @@ const MainShareInfo = () => {
                               "polygon(0% 20%, 60% 20%, 60% 0%, 100% 50%, 60% 100%, 60% 80%, 0% 80%)",
                           }}
                         >
-                          {amountEntry.amountToShare}
+                          {Math.round(amountEntry.amountToShare)}
                         </div>
                       );
                     })}
