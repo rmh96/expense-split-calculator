@@ -8,7 +8,7 @@ const DropDown = ({
   isEmptyCheck,
   parentValue,
 }) => {
-  const { esStore } = useExpenseSplitContext();
+  const { esStore, darkMode } = useExpenseSplitContext();
   const [options, setOptions] = useState(esStore.tourMembers);
   const [dropDownFlag, setDropDownFlag] = useState(false);
   const [name, setName] = useState(parentValue);
@@ -45,7 +45,7 @@ const DropDown = ({
           onClick={handleDropDownChange}
         >
           <input
-            className="outline-0 h-6"
+            className={`outline-0 h-6 ${darkMode && "bg-darkMode"}`}
             placeholder="Select a person"
             value={name}
             readOnly
@@ -61,7 +61,9 @@ const DropDown = ({
         {dropDownFlag && esStore.tourMembers.length > 0 ? (
           <div className="w-full border h-28 overflow-scroll relative">
             <input
-              className="sticky top-0 p-2 w-full h-6 outline-none border-b-2"
+              className={`sticky top-0 p-2 w-full h-6 outline-none border-b-2 ${
+                darkMode && "bg-darkMode"
+              }`}
               value={filterValue}
               onChange={(e) => {
                 setFilterValue(e.target.value);
@@ -70,7 +72,7 @@ const DropDown = ({
             />
             {options.map((item, index) => (
               <div
-                className="w-full h-7 flex items-center border-b-2 pl-1 hover:bg-blue-200 text-sm"
+                className="w-full h-7 flex items-center border-b-2 pl-1 hover:bg-blue-500 text-sm"
                 key={index}
                 onClick={() => {
                   setDropDownFlag(false);

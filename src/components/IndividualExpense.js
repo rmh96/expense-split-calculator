@@ -5,7 +5,7 @@ import Button from "./common/Button";
 import { useExpenseSplitContext } from "../context/Store";
 
 const IndividualExpense = () => {
-  const { esStore, esDispatch } = useExpenseSplitContext();
+  const { esStore, esDispatch, darkMode } = useExpenseSplitContext();
   const [spentDetails, setSpentDetails] = useState({
     payer: "",
     amountSpent: 0,
@@ -68,7 +68,9 @@ const IndividualExpense = () => {
             Amount Spent:
           </label>
           <input
-            className="w-1/2 border h-8 pl-1 rounded"
+            className={`w-1/2 border h-8 pl-1 rounded ${
+              darkMode && "bg-darkMode"
+            }`}
             placeholder={
               spentDetails.amountSpent === 0 ? "how much amount spent?" : ""
             }
@@ -96,7 +98,9 @@ const IndividualExpense = () => {
             Description:
           </label>
           <input
-            className="w-1/2 border h-8 pl-1 rounded"
+            className={`w-1/2 border h-8 pl-1 rounded ${
+              darkMode && "bg-darkMode"
+            }`}
             placeholder={
               spentDetails.description === "" ? "where you spent?" : ""
             }

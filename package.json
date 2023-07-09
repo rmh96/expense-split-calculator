@@ -1,7 +1,7 @@
 {
   "homepage": "https://rmh96.github.io/expense-split-calculator",
   "name": "expense-split-calculator",
-  "version": "0.2.0",
+  "version": "1.2.0",
   "description": "Get each person spent expenses for the group and split it with other persons",
   "scripts": {
     "test": "jest",

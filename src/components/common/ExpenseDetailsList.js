@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { useExpenseSplitContext } from "../../context/Store";
 
 const ExpenseDetailsList = () => {
-  const { esStore } = useExpenseSplitContext();
+  const { esStore, darkMode } = useExpenseSplitContext();
   const [detailsFlag, setFlag] = useState(false);
   return (
-    <div className="w-full flex justify-end pt-2">
+    <div className={"w-full flex justify-end pt-2"}>
       <div
         className="cursor-pointer p-2 text-center border border-blue-300 rounded-xl shadow bg-blue-500 text-white transform transition-all duration-300 hover:scale-105 hover:bg-blue-600"
         onClick={() => setFlag(!detailsFlag)}
@@ -19,7 +19,9 @@ const ExpenseDetailsList = () => {
         <div className="z-40 -mt-2 bg-white absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/4 border border-blue-400 h-1/2 w-1/2 sm:w-[95.5%] sm:h-1/2 sm:top-3/5 md:w-[95.5%] md:h-1/2 md:top-3/5">
           <div
             id="expense-detail-list-container"
-            className="h-full overflow-y-auto relative"
+            className={`${
+              darkMode && "bg-darkMode"
+            } h-full overflow-y-auto relative`}
           >
             <div className="w-full h-12 border bg-blue-600 flex justify-between sticky top-0">
               <span className="text-white text-xl pl-2 flex justify-center items-center">

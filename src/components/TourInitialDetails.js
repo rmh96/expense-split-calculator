@@ -4,7 +4,7 @@ import Button from "./common/Button";
 import AddMembers from "./common/AddMembers";
 
 const TourInitialDetails = () => {
-  const { esStore, esDispatch } = useExpenseSplitContext();
+  const { esStore, esDispatch, darkMode } = useExpenseSplitContext();
   const [error, setError] = useState({ "tour-desc": false, addMembers: false });
   const handleNextClick = () => {
     console.log();
@@ -44,7 +44,7 @@ const TourInitialDetails = () => {
           <input
             className={`w-1/2 border h-8 pl-1 rounded ${
               error["tour-desc"] ? "shake-box" : ""
-            }`}
+            } ${darkMode && "bg-darkMode"}`}
             placeholder="where you went?"
             type="text"
             id="tour-desc"

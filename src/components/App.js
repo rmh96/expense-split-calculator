@@ -7,11 +7,7 @@ import MainShareInfo from "./common/MainShareInfo";
 const App = () => {
   return (
     <ExpenseProvider>
-      <div className="w-full h-screen p-3 overflow-y-scroll mb-3">
-        <Header />
-        <ExpenseSplitMain />
-        <MainShareInfo />
-      </div>
+      <ExpenseSplitMain />
     </ExpenseProvider>
   );
 };

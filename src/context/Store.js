@@ -57,7 +57,7 @@ export const ExpenseProvider = ({ children }) => {
     reducer,
     ExpenseSplitInitialStates
   );
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   const resetApp = () => {
     esDispatch({ type: "resetApp" });

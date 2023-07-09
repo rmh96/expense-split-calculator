@@ -3,7 +3,7 @@ import { useExpenseSplitContext } from "../../context/Store";
 
 const AddMembers = ({ id, label, isEmptyCheck }) => {
   const [name, setName] = useState("");
-  const { esStore, esDispatch } = useExpenseSplitContext();
+  const { esStore, esDispatch, darkMode } = useExpenseSplitContext();
   return (
     <div className="w-full flex justify-between">
       <label className="inline-block" htmlFor="addMembers">
@@ -13,7 +13,7 @@ const AddMembers = ({ id, label, isEmptyCheck }) => {
         <input
           className={`w-full border h-8 pl-1 rounded ${
             isEmptyCheck ? "shake-box" : ""
-          }`}
+          } ${darkMode && "bg-darkMode"}`}
           placeholder="your crime partners"
           type="text"
           id="addMembers"
@@ -40,7 +40,9 @@ const AddMembers = ({ id, label, isEmptyCheck }) => {
                   <li className="border rounded inline-block p-1" key={index}>
                     <span className="mr-1">{item}</span>
                     <span
-                      className="cursor-pointer bg-white border rounded-2xl"
+                      className={`cursor-pointer bg-white border rounded-2xl ${
+                        darkMode && "text-black"
+                      }`}
                       onClick={(event) => {
                         esDispatch({ type: "removeMember", payLoad: item });
                       }}
