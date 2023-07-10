@@ -28440,7 +28440,7 @@ const DropDown = ({ label , id , updateNameInParent , isEmptyCheck , parentValue
                         onClick: handleDropDownChange,
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
-                                className: `outline-0 h-6 ${darkMode && "bg-darkMode"}`,
+                                className: `w-full outline-0 h-6 ${darkMode && "bg-darkMode"}`,
                                 placeholder: "Select a person",
                                 value: name,
                                 readOnly: true
