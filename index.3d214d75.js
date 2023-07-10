@@ -27757,7 +27757,7 @@ $RefreshReg$(_c, "Header");
   window.$RefreshSig$ = prevRefreshSig;
 }
 },{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../../context/Store":"7mzJy","../../../package.json":"dIKiH","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"dIKiH":[function(require,module,exports) {
-module.exports = JSON.parse('{"homepage":"https://rmh96.github.io/expense-split-calculator","name":"expense-split-calculator","version":"1.3.0-alpha","description":"Get each person spent expenses for the group and split it with other persons","scripts":{"test":"jest","start":"parcel index.html","build":"parcel build index.html","predeploy":"npm run build","deploy":"gh-pages -d dist"},"author":"Harish Mukundhaprasath","license":"ISC","dependencies":{"prop-types":"^15.8.1","react":"^18.2.0","react-dom":"^18.2.0"},"devDependencies":{"autoprefixer":"^10.4.14","eslint":"^8.42.0","eslint-plugin-react":"^7.32.2","gh-pages":"^5.0.0","parcel":"^2.9.2","postcss":"^8.4.24","process":"^0.11.10","tailwindcss":"^3.3.2"}}');
+module.exports = JSON.parse('{"homepage":"https://rmh96.github.io/expense-split-calculator/","name":"expense-split-calculator","version":"1.3.0-alpha","description":"Get each person spent expenses for the group and split it with other persons","scripts":{"test":"jest","start":"parcel index.html","build":"parcel build index.html","predeploy":"npm run build","deploy":"gh-pages -d dist"},"author":"Harish Mukundhaprasath","license":"ISC","dependencies":{"prop-types":"^15.8.1","react":"^18.2.0","react-dom":"^18.2.0"},"devDependencies":{"autoprefixer":"^10.4.14","eslint":"^8.42.0","eslint-plugin-react":"^7.32.2","gh-pages":"^5.0.0","parcel":"^2.9.2","postcss":"^8.4.24","process":"^0.11.10","tailwindcss":"^3.3.2"}}');
 
 },{}],"cOjE3":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$7c1a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -28046,6 +28046,13 @@ const AddMembers = ({ id , label , isEmptyCheck  })=>{
     _s();
     const [name, setName] = (0, _react.useState)("");
     const { esStore , esDispatch , darkMode  } = (0, _store.useExpenseSplitContext)();
+    const handleEnter = ()=>{
+        esDispatch({
+            type: "addMember",
+            payLoad: name.charAt(0).toUpperCase() + name.slice(1)
+        });
+        setName("");
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "w-full flex justify-between",
         children: [
@@ -28058,15 +28065,15 @@ const AddMembers = ({ id , label , isEmptyCheck  })=>{
                 ]
             }, void 0, true, {
                 fileName: "src/components/common/AddMembers.js",
-                lineNumber: 9,
+                lineNumber: 17,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "w-1/2",
+                className: "w-1/2 relative",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                         className: `w-full border h-8 pl-1 rounded ${isEmptyCheck ? "shake-box" : ""} ${darkMode && "bg-darkMode"}`,
-                        placeholder: "your crime partners",
+                        placeholder: "your crime partner ex: Joe Doe",
                         type: "text",
                         id: "addMembers",
                         autoComplete: "off",
@@ -28075,17 +28082,22 @@ const AddMembers = ({ id , label , isEmptyCheck  })=>{
                             setName(event.target.value);
                         },
                         onKeyDown: (event)=>{
-                            if (event.key === "Enter") {
-                                esDispatch({
-                                    type: "addMember",
-                                    payLoad: name.charAt(0).toUpperCase() + name.slice(1)
-                                });
-                                setName("");
-                            }
+                            if (event.key === "Enter") name !== "" && handleEnter();
                         }
                     }, void 0, false, {
                         fileName: "src/components/common/AddMembers.js",
-                        lineNumber: 13,
+                        lineNumber: 21,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "h-8 w-7 border-none bg-blue-300 flex justify-center items-center absolute top-0 right-0",
+                        onClick: ()=>{
+                            name !== "" && handleEnter();
+                        },
+                        children: "+"
+                    }, void 0, false, {
+                        fileName: "src/components/common/AddMembers.js",
+                        lineNumber: 39,
                         columnNumber: 9
                     }, undefined),
                     esStore.tourMembers.length > 0 && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -28101,7 +28113,7 @@ const AddMembers = ({ id , label , isEmptyCheck  })=>{
                                             children: item
                                         }, void 0, false, {
                                             fileName: "src/components/common/AddMembers.js",
-                                            lineNumber: 41,
+                                            lineNumber: 53,
                                             columnNumber: 21
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
@@ -28115,36 +28127,36 @@ const AddMembers = ({ id , label , isEmptyCheck  })=>{
                                             children: "X"
                                         }, void 0, false, {
                                             fileName: "src/components/common/AddMembers.js",
-                                            lineNumber: 42,
+                                            lineNumber: 54,
                                             columnNumber: 21
                                         }, undefined)
                                     ]
                                 }, index, true, {
                                     fileName: "src/components/common/AddMembers.js",
-                                    lineNumber: 40,
+                                    lineNumber: 52,
                                     columnNumber: 19
                                 }, undefined);
                             })
                         }, void 0, false, {
                             fileName: "src/components/common/AddMembers.js",
-                            lineNumber: 37,
+                            lineNumber: 49,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/common/AddMembers.js",
-                        lineNumber: 36,
+                        lineNumber: 48,
                         columnNumber: 11
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/common/AddMembers.js",
-                lineNumber: 12,
+                lineNumber: 20,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/common/AddMembers.js",
-        lineNumber: 8,
+        lineNumber: 16,
         columnNumber: 5
     }, undefined);
 };
